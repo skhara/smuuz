@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+<string name="app_name">Smuuz</string>
+<string name="ButtonStartText">Start music</string>
+<string name="ButtonPauseText">Pause</string>
+<string name="ButtonStopText">Stop</string>
+<string name="EqualizerButtonUpText">Up</string>
+<string name="EqualizerButtonDownText">Down</string>
+<string name="EqualizerTextViewText1">21</string>
+<string name="EqualizerTextViewText2">21</string>
+<string name="EqualizerTextViewText3">21</string>
+<string name="EqualizerCheckBoxText">Enable/Disable</string>
+<string name="EqualizerTextViewTextBass">Bass</string>
+<string name="EqualizerTextViewTextMid">Mid</string>
+<string name="EqualizerTextViewTextTreble">Treble</string>
+</resources>

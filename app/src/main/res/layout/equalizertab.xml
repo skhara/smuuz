@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	android:padding="4px">
+  
+  	<CheckBox 
+  		android:text="@string/EqualizerCheckBoxText" 
+  		android:id="@+id/EqualizerCheckBoxEnable" 
+  		android:layout_width="wrap_content" 
+  		android:layout_height="wrap_content"
+  		android:layout_marginBottom="10dip">
+  	</CheckBox>
+  	
+  	<LinearLayout 
+  		android:id="@+id/LinearLayout00" 
+  		android:layout_width="fill_parent" 
+  		android:layout_height="wrap_content"
+  		android:orientation="horizontal"
+  		android:layout_marginBottom="4dip">
+  		
+  		<TextView 
+			android:text="@string/EqualizerTextViewTextBass" 
+			android:id="@+id/EqualizerTextViewBass" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="30dip" 
+			android:textSize="25dip">
+		</TextView>
+		
+		<TextView 
+			android:text="@string/EqualizerTextViewTextMid" 
+			android:id="@+id/EqualizerTextViewMid" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="27dip"
+			android:textSize="25dip">
+		</TextView>
+		
+		<TextView 
+			android:text="@string/EqualizerTextViewTextTreble" 
+			android:id="@+id/EqualizerTextViewTreble" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:textSize="25dip">
+		</TextView>
+  	</LinearLayout>
+  	
+  	<LinearLayout 
+		android:id="@+id/LinearLayoutEqualizer01" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+				
+		<Button 
+			android:id="@+id/EqualizerButtonUp1"
+			android:text="@string/EqualizerButtonUpText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_marginLeft="35dip"/>
+			
+		<Button 
+			android:id="@+id/EqualizerButtonUp2"
+			android:text="@string/EqualizerButtonUpText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="35dip"/>
+			
+		<Button 
+			android:id="@+id/EqualizerButtonUp3"
+			android:text="@string/EqualizerButtonUpText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="35dip"/>
+	</LinearLayout>
+	
+	<LinearLayout 
+		android:id="@+id/LinearLayoutEqualizer02" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		
+		<TextView 
+			android:text="@string/EqualizerTextViewText1" 
+			android:id="@+id/EqualizerTextView1" 
+			android:layout_width="25dip" 
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="47dip">
+		</TextView>
+		
+		<TextView 
+			android:text="@string/EqualizerTextViewText2" 
+			android:id="@+id/EqualizerTextView2" 
+			android:layout_width="25dip" 
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="50dip">
+		</TextView>
+		
+		<TextView 
+			android:text="@string/EqualizerTextViewText3" 
+			android:id="@+id/EqualizerTextView3" 
+			android:layout_width="25dip" 
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="50dip">
+		</TextView>
+	</LinearLayout>
+	
+	<LinearLayout 
+		android:id="@+id/LinearLayoutEqualizer03" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_marginTop="4dip">
+				
+		<Button 
+			android:id="@+id/EqualizerButtonDown1" 
+			android:text="@string/EqualizerButtonDownText" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="25dip"/>
+			
+		<Button 
+			android:id="@+id/EqualizerButtonDown2"
+			android:text="@string/EqualizerButtonDownText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="17dip"/>
+			
+		<Button 
+			android:id="@+id/EqualizerButtonDown3"
+			android:text="@string/EqualizerButtonDownText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="17dip"/>
+	</LinearLayout>
+</LinearLayout>
