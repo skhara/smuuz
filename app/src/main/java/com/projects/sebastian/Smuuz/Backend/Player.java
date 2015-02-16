@@ -1,6 +1,6 @@
 package com.projects.sebastian.Smuuz.Backend;
 
-import com.projects.sebastian.Smuuz.Backend.PlaybackHandler.PlaybackEvent;
+import com.projects.sebastian.Smuuz.Backend.PlaybackController.PlaybackEvent;
 import com.projects.sebastian.Smuuz.Backend.PlaybackService.PlaybackState;
 
 import android.media.AudioFormat;
@@ -9,11 +9,11 @@ import android.media.AudioTrack;
 import android.util.Log;
 
 
-class Playback implements Runnable {
-	// Out handler for thread synchronization and control
-	private WaitNotify signalControl = new WaitNotify();
-	private WaitNotify signalThread = null;
-	private PlaybackHandler handler = null;
+class Player implements Runnable {
+	// Out controller for thread synchronization and control
+	private Trigger playerTrigger = new Trigger();
+	private Trigger callerTrigger = null;
+	private PlaybackController controller = null;
 	
 	private AudioTrack track = null;
 	private boolean paused = true;
@@ -27,17 +27,17 @@ class Playback implements Runnable {
 	private final static int MPG123_OK = 0;
 
 	
-	public Playback(PlaybackHandler playbackHandler, String inputFilename, WaitNotify signal_thread)
+	public Player(PlaybackController controller, String inputFilename, Trigger callerTrigger)
 	{
-		handler = playbackHandler;
+		this.controller = controller;
 		filename = inputFilename;
-		signalThread = signal_thread;
+		this.callerTrigger = callerTrigger;
 	}
 
 	@Override
 	public void run() {
 		// We're important
-		android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO); 
+		//android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
 		
 		int err = NativeWrapper.initMP3(filename);
 		if (err != MPG123_OK)
@@ -48,11 +48,13 @@ class Playback implements Runnable {
         Log.d("MPG123", "NativeWrapper.initMP3 resulted in  " + err);
 		
 		AudioFileInformations audioInfo = NativeWrapper.getAudioInformations();
-		if(!audioInfo.success)
+
+        if(!audioInfo.success)
 		{
 			// TODO: Show error
 		}
-		else
+
+        else
 		{
 			int minBufferSize = AudioTrack.getMinBufferSize((int) audioInfo.rate, 
 					AudioFormat.CHANNEL_CONFIGURATION_STEREO, AudioFormat.ENCODING_PCM_16BIT);
@@ -71,8 +73,8 @@ class Playback implements Runnable {
 			// Shorten waiting time for the first real audio data
 			boolean first = true;
 			
-			// Inform playback handler that we're ready
-			signalThread.doNotify();
+			// Inform caller that we're ready
+			callerTrigger.resumeThread();
 			
 			/*
 			 * This is our "big" playing and decoding loop
@@ -81,7 +83,7 @@ class Playback implements Runnable {
 			{
 				// Wait until the user wants to play the file
 				if(paused && !first)
-					signalControl.doWait();
+					playerTrigger.pauseThread();
 				
 				// If user has stopped, jump out immediately
 				if(ended)
@@ -105,8 +107,8 @@ class Playback implements Runnable {
 				track.flush();
 				track.stop();
 				
-				// Inform playback handler, that we have finished normally
-				handler.SetEvent(PlaybackEvent.songStopped, filename);
+				// Inform playback controller, that we have finished normally
+				controller.setEvent(PlaybackEvent.songStopped, filename);
 			}
 			
 			// Cleanup
@@ -115,22 +117,22 @@ class Playback implements Runnable {
 			
 			// If we've been stopped, inform caller
 			if(ended)
-				signalThread.doNotify();
+				callerTrigger.resumeThread();
 		}
 	}
 	
-	public void Control(PlaybackState con)
+	public void setState(PlaybackState state)
 	{
 		// If we have stopped it once, we cannot do anything with it again
 		if(ended)
 			return;
 		
-		switch(con)
+		switch(state)
 		{
 			case play:	
 				paused = false;
 				track.play();
-				signalControl.doNotify();
+				playerTrigger.resumeThread();
 			break;
 			
 			case pause:
@@ -148,7 +150,7 @@ class Playback implements Runnable {
 			case end:
 				ended = true;
 				track.stop();
-				signalControl.doNotify();
+				playerTrigger.resumeThread();
 			break;
 		}
 	}

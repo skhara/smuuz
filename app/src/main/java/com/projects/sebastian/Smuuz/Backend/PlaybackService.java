@@ -1,6 +1,6 @@
 package com.projects.sebastian.Smuuz.Backend;
 
-import com.projects.sebastian.Smuuz.Backend.PlaybackHandler.PlaybackEvent;
+import com.projects.sebastian.Smuuz.Backend.PlaybackController.PlaybackEvent;
 import com.projects.sebastian.Smuuz.Database.DatabaseHelper;
 
 import android.app.Service;
@@ -19,32 +19,32 @@ public class PlaybackService extends Service {
 	};
 	
 	public static DatabaseHelper databaseHelper = null;
-	private PlaybackHandler playback_handler = null;
+	private PlaybackController controller = null;
 	
 	
 	private final IPlaybackService.Stub myPlaybackServiceStub = new IPlaybackService.Stub() {
 		@Override
-		public void PlayPlayback() throws RemoteException {
-			if(playback_handler != null)
-				playback_handler.SetEvent(PlaybackEvent.playSong, null);
+		public void prepare() throws RemoteException {
+			if(controller != null)
+				controller.setEvent(PlaybackEvent.prepare, null);
 		}
 		
 		@Override
-		public void PausePlayback() throws RemoteException {
-			if(playback_handler != null)
-				playback_handler.SetEvent(PlaybackEvent.pauseSong, null);
+		public void pause() throws RemoteException {
+			if(controller != null)
+				controller.setEvent(PlaybackEvent.pauseSong, null);
 		}
 
 		@Override
-		public void StopPlayback() throws RemoteException {
-			if(playback_handler != null)
-				playback_handler.SetEvent(PlaybackEvent.stopSong, null);
+		public void stop() throws RemoteException {
+			if(controller != null)
+				controller.setEvent(PlaybackEvent.stopSong, null);
 		}
 
 		@Override
-		public void PlaySong(String filename) throws RemoteException {
-			if(playback_handler != null)
-				playback_handler.SetEvent(PlaybackEvent.startSong, filename);
+		public void start(String filename) throws RemoteException {
+			if(controller != null)
+				controller.setEvent(PlaybackEvent.startSong, filename);
 		}
 		
 		@Override
@@ -70,11 +70,11 @@ public class PlaybackService extends Service {
 		 // Initialize our MPG123 native library (once per process)
         Log.d("MPG123", "Native lib init result is " + NativeWrapper.initLib());
 
-		playback_handler = new PlaybackHandler();
+		controller = new PlaybackController();
 		databaseHelper = new DatabaseHelper(this);
 		
 		// Start our controlling thread
-        final Thread playbackHandlerThread = new Thread(playback_handler);
+        final Thread playbackHandlerThread = new Thread(controller);
         playbackHandlerThread.start();
 	}
 	
@@ -88,6 +88,7 @@ public class PlaybackService extends Service {
 		databaseHelper.Finish();
 		
 		// Finalize MPG123 native library (once per process)
+        Log.d("MPG123", "Native lib is cleaned on Service Destroy");
 		NativeWrapper.cleanupLib();
 	}
 }

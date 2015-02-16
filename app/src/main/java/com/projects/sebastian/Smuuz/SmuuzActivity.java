@@ -22,7 +22,7 @@ public class SmuuzActivity extends TabActivity {
         
         
         // Create our service if it doesn't exist already
-        ((GlobalState) getApplicationContext()).newServiceConnection();
+        ((App) getApplicationContext()).newServiceConnection();
         
         
         // Build our tabs

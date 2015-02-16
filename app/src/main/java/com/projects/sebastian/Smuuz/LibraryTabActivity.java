@@ -94,7 +94,7 @@ public class LibraryTabActivity extends Activity {
 			        	try 
 			        	{
 			        		// Play this song
-			        		((GlobalState) getApplicationContext()).PlaySong(cFile.getString(3));
+			        		((App) getApplicationContext()).start(cFile.getString(3));
 						
 			        		// TODO:
 			        		boolean b = SmuuzActivity.databaseHelper.insertSong(cFile.getString(0), cFile.getString(1),

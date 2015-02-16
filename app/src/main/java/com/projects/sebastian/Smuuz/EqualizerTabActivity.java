@@ -40,18 +40,18 @@ public class EqualizerTabActivity extends Activity {
 						double dVol = bassVol;
 						dVol /= 10;
 						
-						((GlobalState) getApplicationContext()).setEQ(0, dVol);
+						((App) getApplicationContext()).setEQ(0, dVol);
 						
 						dVol = midVol;
 						dVol /= 10;
 						
-						((GlobalState) getApplicationContext()).setEQ(1, dVol);
+						((App) getApplicationContext()).setEQ(1, dVol);
 						
 						dVol = trebleVol;
 						dVol /= 10;
 						
 						for(int i = 2; i < 32; i++)
-							((GlobalState) getApplicationContext()).setEQ(i, dVol);
+							((App) getApplicationContext()).setEQ(i, dVol);
 						
 					} catch (RemoteException re) {
 						// TODO:
@@ -61,7 +61,7 @@ public class EqualizerTabActivity extends Activity {
 				{ 
 					try 
 					{
-						((GlobalState) getApplicationContext()).resetEQ();
+						((App) getApplicationContext()).resetEQ();
 					} catch (RemoteException re) {
 						// TODO:
 					}
@@ -98,7 +98,7 @@ public class EqualizerTabActivity extends Activity {
 						dVol /= 10;
 						
 						if(enabled)
-							((GlobalState) getApplicationContext()).setEQ(0, dVol);
+							((App) getApplicationContext()).setEQ(0, dVol);
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -123,7 +123,7 @@ public class EqualizerTabActivity extends Activity {
 						dVol /= 10;
 						
 						if(enabled)
-							((GlobalState) getApplicationContext()).setEQ(0, dVol);
+							((App) getApplicationContext()).setEQ(0, dVol);
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -151,7 +151,7 @@ public class EqualizerTabActivity extends Activity {
 						dVol /= 10;
 						
 						if(enabled)
-							((GlobalState) getApplicationContext()).setEQ(1, dVol);
+							((App) getApplicationContext()).setEQ(1, dVol);
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -176,7 +176,7 @@ public class EqualizerTabActivity extends Activity {
 						dVol /= 10;
 						
 						if(enabled)
-							((GlobalState) getApplicationContext()).setEQ(1, dVol);
+							((App) getApplicationContext()).setEQ(1, dVol);
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -207,7 +207,7 @@ public class EqualizerTabActivity extends Activity {
 						for(int i = 2; i < 32; i++)
 							try 
 							{
-								((GlobalState) getApplicationContext()).setEQ(i, dVol);
+								((App) getApplicationContext()).setEQ(i, dVol);
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -236,7 +236,7 @@ public class EqualizerTabActivity extends Activity {
 						for(int i = 2; i < 32; i++)
 							try 
 							{
-								((GlobalState) getApplicationContext()).setEQ(i, dVol);
+								((App) getApplicationContext()).setEQ(i, dVol);
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();

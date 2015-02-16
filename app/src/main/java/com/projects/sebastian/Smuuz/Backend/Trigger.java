@@ -5,7 +5,7 @@ import android.util.Log;
 class MonitorObject {
 }
 
-class WaitNotify
+class Trigger
 {
 	private MonitorObject myMonitorObject = new MonitorObject();
 	private boolean wasSignalled = false;
@@ -24,7 +24,7 @@ class WaitNotify
 		return isWaiting;
 	}
 	
-	public void doWait() {
+	public void pauseThread() {
 		synchronized(myMonitorObject) {
 			while(!wasSignalled) 
 			{
@@ -45,7 +45,7 @@ class WaitNotify
 		}
 	}
 
-	public void doNotify(){
+	public void resumeThread(){
 		synchronized(myMonitorObject) {
 			wasSignalled = true;
 			myMonitorObject.notify();

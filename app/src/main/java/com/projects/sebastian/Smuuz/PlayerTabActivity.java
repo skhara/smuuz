@@ -87,7 +87,7 @@ public class PlayerTabActivity extends Activity {
 				        	try 
 				        	{
 				        		// Play this song, and mark as currently played
-				        		((GlobalState) getApplicationContext()).PlaySong(c.getString(5));
+				        		((App) getApplicationContext()).start(c.getString(5));
 				        		SmuuzActivity.databaseHelper.markSongCurrPlayed(true, c.getString(5));
 				        	}catch(RemoteException e) {
 								// TODO: Auto-generated catch block
@@ -109,14 +109,14 @@ public class PlayerTabActivity extends Activity {
         buttonStart.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-		       try
+		       /*try
 		       {
-		    	   ((GlobalState) getApplicationContext()).PlayPlayback();
+		    	   ((App) getApplicationContext()).prepare();
 		       }
 		       catch(RemoteException re)
 		       {
 		    	   Log.e("Error", re.toString());
-		       }
+		       }*/
 			}
         });
         
@@ -129,7 +129,7 @@ public class PlayerTabActivity extends Activity {
 			public void onClick(View v) {
 				try
 				{
-					((GlobalState) getApplicationContext()).PausePlayback();
+					((App) getApplicationContext()).pause();
 				}
 				catch(RemoteException re)
 				{
@@ -147,7 +147,7 @@ public class PlayerTabActivity extends Activity {
 			public void onClick(View v) {
 				try
 				{
-					((GlobalState) getApplicationContext()).StopPlayback();
+					((App) getApplicationContext()).stop();
 				}
 				catch(RemoteException re)
 				{

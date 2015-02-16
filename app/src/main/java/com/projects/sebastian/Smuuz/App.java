@@ -16,7 +16,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 
-public class GlobalState extends Application {
+public class App extends Application {
 	private Intent serviceIntent = null;
 	private ServiceConnection serviceConnection = null;
 	private IPlaybackService myPlaybackService = null;
@@ -25,39 +25,39 @@ public class GlobalState extends Application {
 	private PlaybackState state = PlaybackState.none;
 	
 	
-	public synchronized boolean PlaySong(String filepath) throws RemoteException {
+	public synchronized boolean start(String filepath) throws RemoteException {
 		if(filepath == null || filepath.equals("") || myPlaybackService == null)
 			return false;
 		
 		state = PlaybackState.play;
-		myPlaybackService.PlaySong(filepath);
+		myPlaybackService.start(filepath);
 		return true;
 	}
 
-	public synchronized boolean PlayPlayback() throws RemoteException {
+	public synchronized boolean prepare() throws RemoteException {
 		if(myPlaybackService == null)
 			return false;
 		
 		state = PlaybackState.play;
-		myPlaybackService.PlayPlayback();
+		myPlaybackService.prepare();
 		return true;
 	}
 	
-	public synchronized boolean PausePlayback() throws RemoteException {
+	public synchronized boolean pause() throws RemoteException {
 		if(myPlaybackService == null)
 			return false;
 		
 		state = PlaybackState.pause;
-		myPlaybackService.PausePlayback();
+		myPlaybackService.pause();
 		return true;
 	}
 	
-	public synchronized boolean StopPlayback() throws RemoteException {
+	public synchronized boolean stop() throws RemoteException {
 		if(myPlaybackService == null)
 			return false;
 		
 		state = PlaybackState.stop;
-		myPlaybackService.StopPlayback();
+		myPlaybackService.stop();
 		return true;
 	}
 	
