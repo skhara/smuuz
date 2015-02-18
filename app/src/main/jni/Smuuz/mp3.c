@@ -82,7 +82,6 @@ JNIEXPORT jint JNICALL Java_com_projects_sebastian_Smuuz_Backend_NativeWrapper_n
   	(*env)->ReleaseStringUTFChars(env, filename, mfile);
 
 
-/* 
 	int i = 1;
  
 	double in = 1.0;
@@ -92,12 +91,11 @@ JNIEXPORT jint JNICALL Java_com_projects_sebastian_Smuuz_Backend_NativeWrapper_n
 
 	in = 1.0;
 	
-  for(i = 1; i < 32; i++)
-  {
-	  if(mpg123_eq(mh, MPG123_LEFT | MPG123_RIGHT, i, in) != MPG123_OK)
-		  dprintf(0, "eq failed\n");
-  }
-*/
+    for(i = 1; i < 32; i++)
+    {
+        if(mpg123_eq(mh, MPG123_LEFT | MPG123_RIGHT, i, in) != MPG123_OK)
+        dprintf(0, "eq failed\n");
+    }
 
 	err = MPG123_OK;
 	return err;
@@ -136,6 +134,10 @@ JNIEXPORT void JNICALL Java_com_projects_sebastian_Smuuz_Backend_NativeWrapper_n
  */
 JNIEXPORT jobject JNICALL Java_com_projects_sebastian_Smuuz_Backend_NativeWrapper_ngetAudioInformations(JNIEnv* env, jobject this, jclass clazz)
 {
+  	int  channels = 0, encoding = 0;
+    long rate = 0;
+    jint err = MPG123_ERR;
+
   	// Get our class defined in java project
 	clazz = (*env)->FindClass(env, "com/projects/sebastian/Smuuz/Backend/AudioFileInformations");
 	if (clazz == 0)
@@ -162,14 +164,24 @@ JNIEXPORT jobject JNICALL Java_com_projects_sebastian_Smuuz_Backend_NativeWrappe
 		return obj;
 	}
 
-	struct mpg123_frameinfo info = {0};
-	mpg123_info(mh, &info);
+	//struct mpg123_frameinfo info = {0};
 
-	(*env)->SetLongField(env, obj, fidRate, info.rate);
+	//mpg123_info(mh, &info);
+	//int sf = mh->sampling_frequency;
+	/*mpg123_format_none(mh);
+    	if ((err = mpg123_format(mh, 44100, MPG123_STEREO, MPG123_ENC_SIGNED_16)) != MPG123_OK)
+    		return JNI_FALSE;*/
+/*	mpg123_getformat(mh, &rate, &channels, &encoding);
+	 __android_log_print(ANDROID_LOG_DEBUG  , "libmuudz", "channels: %d", (int) rate);*/
+
+
+	//dprintf(1, "%p", mh->sampling_frequency);
+    //return NULL;
+	/*(*env)->SetLongField(env, obj, fidRate, info.rate);
 	(*env)->SetIntField(env, obj, fidChannels, info.mode);
 	(*env)->SetIntField(env, obj, fidEncoding, 1);
 	(*env)->SetIntField(env, obj, fidBitrateMode, info.vbr);
-	(*env)->SetIntField(env, obj, fidBitrate, info.bitrate);
+	(*env)->SetIntField(env, obj, fidBitrate, info.bitrate);*/
 /*
 	// Get length in seconds
 	long length_in_mseconds = 0;

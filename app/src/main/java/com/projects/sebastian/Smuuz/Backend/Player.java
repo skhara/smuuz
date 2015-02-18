@@ -51,16 +51,16 @@ class Player implements Runnable {
 
         if(!audioInfo.success)
 		{
-			// TODO: Show error
+
 		}
 
         else
 		{
-			int minBufferSize = AudioTrack.getMinBufferSize((int) audioInfo.rate, 
+			int minBufferSize = AudioTrack.getMinBufferSize(44100,
 					AudioFormat.CHANNEL_CONFIGURATION_STEREO, AudioFormat.ENCODING_PCM_16BIT);
 			
 			// Initialize one AudioTrack instance with given values
-			track = new AudioTrack(AudioManager.STREAM_MUSIC, (int) audioInfo.rate, 
+			track = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
 					AudioFormat.CHANNEL_CONFIGURATION_STEREO, AudioFormat.ENCODING_PCM_16BIT, minBufferSize * 4, 
 					AudioTrack.MODE_STREAM);
 
